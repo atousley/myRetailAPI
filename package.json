@@ -1,0 +1,20 @@
+{
+  "name": "myretailapi",
+  "version": "1.0.0",
+  "description": "Target case study submission for Annette Tousley. RESTful API for product information from myRetail.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "api",
+    "restful",
+    "case",
+    "study"
+  ],
+  "author": "Annette Tousley",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.4"
+  }
+}
