@@ -28,7 +28,7 @@ app.use('/api', apiRoutes);
 var port = process.env.PORT || 8080;
 
 // Send message for default URL
-app.get('/', (req, res) => res.send('Hello World. Server running on Express with Nodemon'));
+app.get('/', (req, res) => res.send('myRetail API'));
 
 // app listen on port 8080
 app.listen(port, function () {

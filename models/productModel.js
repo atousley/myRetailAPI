@@ -6,8 +6,12 @@ var productSchema = mongoose.Schema({
         type: Number,
         required: true  
     },
-    current_price: {
-        type: Object,
+    value: {
+        type: Number,
+        required: true
+    },
+    currency_code: {
+        type: String,
         required: true
     }
 });

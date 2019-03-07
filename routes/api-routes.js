@@ -9,26 +9,22 @@ router.get('/', function(req, res) {
     });
 });
 
-// Import external product API controller
-var exProductController = require('../controllers/exProductController');
-
-// Import internal product controller
+// Import product controller
 var productController = require('../controllers/productController');
 
-// External product routes
-// router.route('/products/:product_id')
-//     .get(exProductController.index);
+// Import ease of use controller
+var easeofUseController = require('../controllers/easeofUseController');
 
-// Internal product routes
+
+// Product Request Routes
 router.route('/products')
-    .get(productController.index)
-    .post(productController.new);
+    .get(easeofUseController.index)
+    .post(easeofUseController.new);
 
 router.route('/products/:product_id')
     .get(productController.view)
-    // .patch(productController.update)
-    .put(productController.update);
-    // .delete(productController.delete);
+    .put(productController.update)
+    .delete(easeofUseController.delete);
 
 // Export API routes
 module.exports = router;
