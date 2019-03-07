@@ -2,12 +2,12 @@ var mongoose = require('mongoose');
 
 // Setup product schema
 var productSchema = mongoose.Schema({
-    name: {
-        type: String,
-        required: true
+    extID: {
+        type: Number,
+        required: true  
     },
     current_price: {
-        type: String,
+        type: Object,
         required: true
     }
 });

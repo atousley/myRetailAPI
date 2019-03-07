@@ -19,7 +19,7 @@ app.use(bodyParser.json());
 // Connect to Mongoose and set connection variable
 mongoose.connect('mongodb://localhost/myRetailAPI');
 
-var db = mongoose.connection;
+// var db = mongoose.connection;
 
 // Use API routes in the App
 app.use('/api', apiRoutes);

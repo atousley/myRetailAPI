@@ -9,19 +9,26 @@ router.get('/', function(req, res) {
     });
 });
 
-// Import product controller
-var productController = require('../productController');
+// Import external product API controller
+var exProductController = require('../controllers/exProductController');
 
-// Product routes
+// Import internal product controller
+var productController = require('../controllers/productController');
+
+// External product routes
+// router.route('/products/:product_id')
+//     .get(exProductController.index);
+
+// Internal product routes
 router.route('/products')
     .get(productController.index)
     .post(productController.new);
 
 router.route('/products/:product_id')
     .get(productController.view)
-    .patch(productController.update)
-    .put(productController.update)
-    .delete(productController.delete);
+    // .patch(productController.update)
+    .put(productController.update);
+    // .delete(productController.delete);
 
 // Export API routes
 module.exports = router;
