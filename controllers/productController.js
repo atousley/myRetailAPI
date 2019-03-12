@@ -25,12 +25,13 @@ exports.view = function (req, res) {
 
     promise.then(function(response) {
         if (finalResponse.status == 'error') {
+            
             res.send(finalJson);
 
         } else {
             Product.find({ 'extID': req.params.product_id }, function (err, product) {
                 
-                let value = product[0].value;
+                let value = parseFloat(product[0].value);
                 let currency_code = product[0].currency_code;
                 let valCurrency = {value, currency_code};
 
@@ -38,13 +39,16 @@ exports.view = function (req, res) {
                 
                 getFinalJson();
 
-                if (err)
+                if (err) {
                     res.send(err);
+                }
+
                 res.send(finalJson);
 
             });
         }
-    });
+    })
+    .catch(error => console.error('Error', error)) ;
 };
 
 // GET from redsky.target.com and determine if response is valid product
@@ -96,29 +100,48 @@ function parseProductInfo (prodInfo) {
 // function to convert global response var to JSON for final response
 function getFinalJson () {
     finalJson = JSON.stringify(finalResponse);
-    // console.log('FINAL JSON FUNCTION', finalJson);
 };
 
 
 // PUT
 // request to update price in datastore
 exports.update = function (req, res) {
+
     Product.findOne({ 'extID': req.params.product_id }, function (err, product) {
+                
         if (err) {
+            console.log(err);
             res.send(err);
-        }
+        } 
+        
+        if (product) {
+            var val = req.body.value;
 
-        product.value = req.body.value;
-        console.log('PRICE', product.value);
+            if ( isNaN(val) ) {
+                // the request value isn't a number, error
+                res.send('The value given is not a number.');
+            } else {
+                let valSave = val.toString();
+                product.value = valSave;
+    
+                // save updated price info
+                product.save(function (err, product) {
+                    if (err)
+                        res.json(err);
+                    res.json({
+                        message: 'product info updated',
+                        data: product
+                    });
+                });
+            }
 
-        // save updated price info
-        product.save(function (err, product) {
-            if (err)
-                res.json(err);
+        } else {
             res.json({
-                message: 'product info updated',
-                data: product
+                status: 'error',
+                message: "There is no product description for this product id"
             });
-        });
+        }
+          
+         
     });
 };
